@@ -5,3 +5,5 @@ test_improved_scoring.py
 test_endpoints.py
 test_api.py
 test_project_issues.py
+test_variations.py
+_pycache_
