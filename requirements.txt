@@ -1,0 +1,26 @@
+# Core - Updated versions
+langgraph>=0.2.0
+python-dotenv==1.0.0
+
+# Async
+aiohttp==3.9.0
+
+# LLM Clients
+openai==1.6.1  # For DeepSeek compatibility
+tenacity==8.2.3
+
+# Web/ Templates
+jinja2==3.1.2
+beautifulsoup4==4.12.2
+markdown==3.5.1
+
+# HTTP Requests
+requests==2.31.0
+
+# Utils
+python-multipart==0.0.6
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# For potential future use
+typing-extensions>=4.8.0
