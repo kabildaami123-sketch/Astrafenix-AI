@@ -1,26 +1,42 @@
-# Core - Updated versions
+# Core Dependencies
 langgraph>=0.2.0
-python-dotenv==1.0.0
+langchain-core>=0.3.0
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
 
-# Async
-aiohttp==3.9.0
+# Async HTTP
+aiohttp>=3.9.0
+asyncio>=3.4.3
 
 # LLM Clients
-openai==1.6.1  # For DeepSeek compatibility
-tenacity==8.2.3
+openai>=1.6.1  # For DeepSeek compatibility
+tenacity>=8.2.3  # Retry logic
 
-# Web/ Templates
-jinja2==3.1.2
-beautifulsoup4==4.12.2
-markdown==3.5.1
+# Code Parsing
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
 
-# HTTP Requests
-requests==2.31.0
-
-# Utils
-python-multipart==0.0.6
-pydantic==2.5.0
-pydantic-settings==2.1.0
-
-# For potential future use
+# Utilities
+requests>=2.31.0
+python-multipart>=0.0.6
 typing-extensions>=4.8.0
+colorama>=0.4.6  # For cross-platform colored output
+
+# Optional: Vector DB for feedback learning
+chromadb>=0.4.18
+sentence-transformers>=2.2.2
+
+# Development & Testing (optional)
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+black>=23.0.0
+isort>=5.12.0
+flake8>=6.1.0
+mypy>=1.5.0
+
+# Monitoring & Logging
+prometheus-client>=0.19.0  # Optional metrics
+
+# Performance
+orjson>=3.9.0  # Faster JSON processing

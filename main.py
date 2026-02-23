@@ -1,13 +1,13 @@
 # main.py
 """
-Main entry point - Run the business report generator with integrated feedback loop
+Multi-Agent System with LangGraph Orchestration
 """
 
 import asyncio
 import argparse
 from dotenv import load_dotenv
 
-from core.orchestrator import BusinessReportOrchestrator
+from core.graph import AgentGraph
 from core.config import config
 from utils.logger import logger
 
@@ -15,7 +15,7 @@ from utils.logger import logger
 load_dotenv()
 
 async def main():
-    parser = argparse.ArgumentParser(description='Generate business-friendly code reports')
+    parser = argparse.ArgumentParser(description='Multi-Agent Code Analysis System')
     parser.add_argument('repo_url', help='GitHub repository URL')
     parser.add_argument('--files', nargs='+', 
                        default=['README.md', 'app/__init__.py', 'app/models.py', 
@@ -25,76 +25,46 @@ async def main():
     args = parser.parse_args()
     
     print("\n" + "="*80)
-    print("BUSINESS REPORT GENERATOR - Translating Code to Business Value")
+    print("🚀 LANGRAPH MULTI-AGENT SYSTEM - Code to Business Value")
     print("="*80)
-    print(f"\nRepository: {args.repo_url}")
-    print(f"Files to analyze: {len(args.files)}")
+    print(f"\n📦 Repository: {args.repo_url}")
+    print(f"📁 Files to analyze: {len(args.files)}")
     
     # Validate config
     try:
         config.validate()
     except ValueError as e:
-        print(f"\nConfiguration error: {e}")
+        print(f"\n❌ Configuration error: {e}")
         print("Please check your .env file")
         return
     
-    # Run the orchestrator
-    orchestrator = BusinessReportOrchestrator()
-    html_report = await orchestrator.generate_report(args.repo_url, args.files)
+    # Initialize and run LangGraph
+    graph = AgentGraph()
+    result = await graph.run(args.repo_url, args.files)
     
-    # Feedback loop: Ask user if they want to provide feedback
-    print("\n" + "="*80)
-    print("💬 FEEDBACK LOOP - Help Improve the Analysis")
-    print("="*80)
-    print("\nWould you like to provide feedback to improve the analysis?")
-    print("Examples:")
-    print("  • 'function authenticate should validate email format'")
-    print("  • 'The checkout flow should include shipping address'")
-    print("\nType your feedback (or press Ctrl+D / Ctrl+C to skip):")
-    print("-"*80)
+    # Print the beautiful report
+    print("\n" + result['report_text'])
     
-    feedback_lines = []
-    try:
-        while True:
-            line = input()
-            if line == "" and feedback_lines:
-                if feedback_lines[-1] == "":
-                    feedback_lines.pop()
-                    break
-                feedback_lines.append("")
-            elif line != "":
-                feedback_lines.append(line)
-            elif line == "" and not feedback_lines:
-                # If first input is empty, treat as skip
-                break
-    except EOFError:
-        pass
-    except KeyboardInterrupt:
-        pass
+    # Print node execution times
+    print("\n" + "="*60)
+    print("⏱️  NODE EXECUTION TIMES")
+    print("="*60)
+    for node, exec_time in result.get('node_execution_times', {}).items():
+        print(f"  • {node:20s}: {exec_time:.3f}s")
+    print(f"\n  • {'TOTAL':20s}: {result['processing_time']:.3f}s")
     
-    feedback_msg = "\n".join(feedback_lines).strip()
-    
-    if feedback_msg:
-        print("\n📝 Processing your feedback...")
-        result = orchestrator.ingest_feedback(feedback_msg)
-        
-        print(f"\n✅ {result.get('summary', 'Feedback processed')}")
-        if result.get('applied'):
-            print(f"\n📋 Applied corrections:")
-            for item in result['applied'][:5]:
-                file_name = item.get('file', '').split('/')[-1]
-                print(f"   • [{file_name}] {item.get('target', 'unknown')}: {item.get('correction', '')[:50]}...")
-        
-        if result.get('skipped'):
-            print(f"\n⚠️ Unhandled items (may need manual review):")
-            for item in result['skipped'][:3]:
-                print(f"   • Original: {item.get('original', 'N/A')[:40]}")
-        
-        print("\n✅ Feedback saved! The system will apply these improvements to future analyses.")
-    else:
-        print("\nℹ️  No feedback submitted. Exiting.")
-    
-    print("\n" + "="*80)
+    # Print summary
+    print("\n" + "="*60)
+    print("📊 LANGRAPH WORKFLOW SUMMARY")
+    print("="*60)
+    print(f"Nodes executed: fetch → analyze → translate → report → feedback → learn")
+    print(f"Files analyzed: {result['files_fetched']}/{result['total_requested']}")
+    print(f"Business rules: {len(result.get('business_rules', []))}")
+    print(f"Features found: {len(result.get('features_found', []))}")
+    print(f"Final confidence: {result.get('confidence_score', 0)*100:.1f}%")
+    print(f"Corrections learned: {len(result.get('corrections', []))}")
+    print(f"Patterns stored: {len(result.get('successful_patterns', [])) + len(result.get('failed_patterns', []))}")
+    print("="*60)
 
 if __name__ == "__main__":
     asyncio.run(main())
