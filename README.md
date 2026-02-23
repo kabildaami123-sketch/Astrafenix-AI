@@ -1,23 +1,5 @@
-
-```markdown
+markdown
 # 🚀 Multi-Agent System: Code to Business Value Translator
-
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![LangGraph](https://img.shields.io/badge/LangGraph-0.2+-green.svg)](https://github.com/langchain-ai/langgraph)
-[![DeepSeek](https://img.shields.io/badge/DeepSeek-API-orange.svg)](https://deepseek.com)
-[![Ollama](https://img.shields.io/badge/Ollama-3.1:8b-purple.svg)](https://ollama.ai)
-[![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
-
-<p align="center">
-  <img src="https://via.placeholder.com/800x400/6366f1/ffffff?text=Code+→+Business+Value+in+1.6s" alt="System Banner" width="80%"/>
-</p>
-
-<p align="center">
-  <b>From Technical Code to Business Insights in 1.6 Seconds</b><br>
-  <i>A LangGraph-powered multi-agent system that translates code into actionable business value</i>
-</p>
-
----
 
 ## 📋 **Table of Contents**
 - [Overview](#-overview)
